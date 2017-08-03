@@ -1,9 +1,14 @@
-# Off-Tree GTP Module with Flow-based Tunneling Support
+# gtp.ko: flow-based GTP tunneling 
 
-## Usage
+### Features
+
+* Flow-based GTP tunneling support.
+* Out-of-tree build of the GTP kernel module. Tested with Linux v4.9.0.
+
+### Usage
 
 ```
 make
-make modules_install
-modprobe gtp
+sudo make modules_install
+sudo modprobe gtp
 ```
