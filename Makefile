@@ -16,7 +16,7 @@ build:
 	echo ${KBUILD_EXTRA_SYMBOLS}
 	make -C /lib/modules/`uname -r`/build M=$(PWD) modules
 	
-modules_install:
+modules_install: build
 	make INSTALL_MOD_DIR=kernel/drivers/net/ -C /lib/modules/`uname -r`/build M=$(PWD) modules_install
 
 package: build 
