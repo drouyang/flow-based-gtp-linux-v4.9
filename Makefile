@@ -1,5 +1,4 @@
 PKGNAME=oai-gtp
-ITERATION=1
 VERSION=4.9
 
 ARCH=amd64

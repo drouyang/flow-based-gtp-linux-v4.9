@@ -7,8 +7,14 @@
 
 ### Usage
 
+Build
 ```
 make
 sudo make modules_install
 sudo modprobe gtp
+```
+
+Package
+```
+ITERATION=2 make package
 ```
