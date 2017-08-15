@@ -1,6 +1,10 @@
 PKGNAME=oai-gtp
 VERSION=4.9
 
+ifndef ITERATION
+    ITERATION=1
+endif 
+
 ARCH=amd64
 PKGFMT=deb
 WORK_DIR=/tmp/build-${PKGNAME}
@@ -12,7 +16,6 @@ OUTPUT_PATH=${OUTPUT_DIR}/${PKGFILE}
 obj-m += gtp.o
 
 build:
-	echo ${KBUILD_EXTRA_SYMBOLS}
 	make -C /lib/modules/`uname -r`/build M=$(PWD) modules
 	
 modules_install: build
@@ -23,6 +26,7 @@ package: build
 	mkdir ${WORK_DIR}
 	make INSTALL_MOD_PATH=${WORK_DIR} INSTALL_MOD_DIR=kernel/drivers/net/ -C /lib/modules/`uname -r`/build M=$(PWD) modules_install
 	fpm \
+            -f \
 	    -s dir \
 	    -t ${PKGFMT} \
 	    -a ${ARCH} \
@@ -34,6 +38,9 @@ package: build
 	    --replaces ${PKGNAME} \
 	    --package ${OUTPUT_PATH} \
 	    --description 'Flow-based GTP kernel module' \
+            --before-install scripts/before-install.sh \
+            --after-install scripts/after-install.sh \
+            --after-remove scripts/after-remove.sh \
 	    -C ${WORK_DIR}
 
 clean:

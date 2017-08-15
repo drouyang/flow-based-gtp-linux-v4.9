@@ -10,11 +10,12 @@
 Build
 ```
 make
-sudo make modules_install
-sudo modprobe gtp
+sudo su
+make modules_install
 ```
 
 Package
 ```
 ITERATION=2 make package
+sudo dpkg --force-overwrite -i oai-gtp
 ```
