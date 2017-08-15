@@ -16,6 +16,6 @@ make modules_install
 
 Package
 ```
-ITERATION=2 make package
+make package
 sudo dpkg --force-overwrite -i oai-gtp
 ```

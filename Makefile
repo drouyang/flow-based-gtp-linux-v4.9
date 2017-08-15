@@ -1,9 +1,6 @@
 PKGNAME=oai-gtp
 VERSION=4.9
-
-ifndef ITERATION
-    ITERATION=1
-endif 
+ITERATION=4
 
 ARCH=amd64
 PKGFMT=deb
