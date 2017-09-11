@@ -17,5 +17,5 @@ make modules_install
 Package
 ```
 make package
-sudo dpkg --force-overwrite -i oai-gtp
+sudo dpkg -i oai-gtp*.deb
 ```
