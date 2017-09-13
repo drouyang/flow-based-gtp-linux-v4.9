@@ -6,6 +6,7 @@
  * Author: Harald Welte <hwelte@sysmocom.de>
  *	   Pablo Neira Ayuso <pablo@netfilter.org>
  *	   Andreas Schultz <aschultz@travelping.com>
+ *	   Jiannan Ouyang <ouyangj@fb.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -1541,7 +1542,7 @@ static const struct genl_ops gtp_genl_ops[] = {
 	},
 };
 
-static struct genl_family gtp_genl_family __ro_after_init = {
+static struct genl_family gtp_genl_family = {
 	.name		= "gtp",
 	.version	= 0,
 	.hdrsize	= 0,
@@ -1599,7 +1600,7 @@ static int __init gtp_init(void)
 	if (err < 0)
 		goto unreg_genl_family;
 
-	pr_info("Magma GTP module loaded (pdp ctx size %zd bytes)\n",
+	pr_info("Flow-based GTP module loaded (pdp ctx size %zd bytes)\n",
 		sizeof(struct pdp_ctx));
 	return 0;
 
@@ -1608,7 +1609,7 @@ unreg_genl_family:
 unreg_rtnl_link:
 	rtnl_link_unregister(&gtp_link_ops);
 error_out:
-	pr_err("error loading GTP module loaded\n");
+	pr_err("error loading flow-based GTP module\n");
 	return err;
 }
 late_initcall(gtp_init);
@@ -1619,7 +1620,7 @@ static void __exit gtp_fini(void)
 	genl_unregister_family(&gtp_genl_family);
 	rtnl_link_unregister(&gtp_link_ops);
 
-	pr_info("GTP module unloaded\n");
+	pr_info("Flow-based GTP module unloaded\n");
 }
 module_exit(gtp_fini);
 
