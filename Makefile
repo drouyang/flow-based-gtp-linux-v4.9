@@ -1,11 +1,12 @@
-PKGNAME=oai-gtp
+KERN_VER=`uname -r`
+PKGNAME=oai-gtp-${KERN_VER}
 VERSION=4.9
-ITERATION=10
+ITERATION=14
 
 ARCH=amd64
 PKGFMT=deb
 WORK_DIR=/tmp/build-${PKGNAME}
-PKGFILE=${PKGNAME}_${VERSION}-${ITERATION}_${ARCH}.${PKGFMT}
+PKGFILE=${PKGNAME}.${PKGFMT}
 DEPMOD_CONFIG_DIR=/etc/depmod.d/
 DEPMOD_CONFIG_FILE=${DEPMOD_CONFIG_DIR}/gtp.conf
 
@@ -40,6 +41,7 @@ package: build
 	    --conflicts ${PKGNAME} \
 	    --replaces ${PKGNAME} \
 	    --package ${OUTPUT_PATH} \
+	    --depends 'linux-image-${KERN_VER}' \
 	    --description 'Flow-based GTP kernel module' \
             --after-install scripts/after-install.sh \
 	    -C ${WORK_DIR}
